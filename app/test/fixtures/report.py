@@ -3,12 +3,9 @@ import pytest
 from ..utils.functions import get_random_price, get_random_string
 
 
-
-
 @pytest.fixture
 def report_uri():
-    return '/report/'
-
+    return "/report/"
 
 
 @pytest.fixture

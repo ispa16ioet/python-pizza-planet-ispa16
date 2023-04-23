@@ -4,10 +4,9 @@ from flask import Blueprint
 from ..utils.utils import generate_report
 
 
-report = Blueprint('report', __name__)
+report = Blueprint("report", __name__)
 
 
-@report.route('/', methods=GET)
+@report.route("/", methods=GET)
 def get_report():
-    
     return generate_report()
