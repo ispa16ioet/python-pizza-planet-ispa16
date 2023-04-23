@@ -1,7 +1,7 @@
+from typing import Tuple
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
 
-from ..common.utils import check_required_keys
 from ..repositories.managers import (
     IngredientManager,
     OrderManager,
@@ -32,21 +32,19 @@ class Default(OrderState):
     order_detail = ""
     order_error = ""
 
-    def get_all_orders(self):
+    def get_orders(self, method):
         try:
-            self.order_detail = self.manager.get_all()
+            self.order_detail = method()
             self.order_error = None
         except (SQLAlchemyError, RuntimeError) as ex:
             self.order_detail = None
             self.order_error = str(ex)
 
+    def get_all_orders(self):
+        self.get_orders(self.manager.get_all)
+
     def get_order_by_id(self, _id):
-        try:
-            self.order_detail = self.manager.get_by_id(_id)
-            self.order_error = None
-        except (SQLAlchemyError, RuntimeError) as ex:
-            self.order_detail = None
-            self.order_error = str(ex)
+        self.get_orders(lambda: self.manager.get_by_id(_id))
 
 
 class CreateOrder(OrderState):
@@ -62,9 +60,15 @@ class CreateOrder(OrderState):
         "size_id",
     )
 
+    @staticmethod
+    def check_required_keys(keys: Tuple[str, ...], element: dict[str, any]) -> bool:
+        """Check if all the required keys are present in the given dictionary."""
+        return all(element.get(key) for key in keys)
+    
+    @staticmethod
     def calculate_order_price(
-        self, size_price: float, ingredients: list, beverages: list
-    ):
+         size_price: float, ingredients: list, beverages: list
+    )-> float:
         price = (
             sum(ingredient.price for ingredient in ingredients)
             + size_price
@@ -73,8 +77,9 @@ class CreateOrder(OrderState):
         return round(price, 2)
 
     def create(self, order: dict):
+        """Create and save order object on database."""
         current_order = order.copy()
-        if not check_required_keys(self.__required_info, current_order):
+        if not self.check_required_keys(self.__required_info, current_order):
             return "Invalid order payload", None
 
         if not current_order.get("state"):

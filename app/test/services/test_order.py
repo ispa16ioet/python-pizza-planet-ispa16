@@ -30,7 +30,7 @@ def test_get_orders_service(client, create_orders, order_uri):
 
 def test_change_order_state(client, order, order_uri):
     current_order = order.json
-    response = client.get(f'{order_uri}change_state/{current_order["_id"]}')
+    response = client.post(f'{order_uri}change_state/{current_order["_id"]}')
     pytest.assume(response.status.startswith("200"))
     returned_order = response.json
     for order in returned_order:

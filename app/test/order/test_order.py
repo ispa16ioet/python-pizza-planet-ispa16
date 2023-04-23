@@ -7,7 +7,7 @@ from app.controllers.base import BaseController
 from app.test.utils.functions import get_random_choice, shuffle_list
 from app.order.order import Order
 from app.order.order_state import CreateOrder
-from app.utils.utils import change_order_state, state_controll_action
+from app.utils.utils import change_order_state, state_control_action
 
 
 def __order(ingredients: list, size: dict, client_data: dict):
@@ -42,7 +42,7 @@ def test_create(app, ingredients, size, client_data):
     new_order = Order()
     new_order.set_state(CreateOrder(new_order))
     new_order.create_order(order)
-    created_order, status_code = state_controll_action(new_order)
+    created_order, status_code = state_control_action(new_order)
 
     size_id = order.pop("size_id", None)
     ingredient_ids = order.pop("ingredients", [])
@@ -74,7 +74,7 @@ def test_calculate_order_price(app, ingredients, size, client_data):
     new_order = Order()
     new_order.set_state(CreateOrder(new_order))
     new_order.create_order(order)
-    created_order, _ = state_controll_action(new_order)
+    created_order, _ = state_control_action(new_order)
 
     json_data = created_order.get_data()
     json_string = json_data.decode("utf-8")
