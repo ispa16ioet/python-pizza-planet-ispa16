@@ -7,9 +7,11 @@ This is an example software for a pizzeria that takes customizable orders.
 ## Table of Contents
 
 - [Getting started](#getting-started)
-- [Running the backend project](#running-the-backend-project)
+- [Automatic Running the backend project](#Automatic-Running-the-backend-project)
+- [Manual Running the backend project](#running-the-backend-project)
 - [Running the frontend](#running-the-frontend)
 - [Testing the backend](#testing-the-backend)
+- [Other usefull commands](#other-usefull-commands)
 
 ## Getting started
 
@@ -21,12 +23,47 @@ You will need the following general tools:
 
 - Extensions such as [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 
-## Running the backend project
+
+## Automatic Running the backend project
+- Clone the repo
+
+```bash
+git clone https://github.com/ispa16ioet/python-pizza-planet-ispa16.git
+
+```
+-- In the directory use makefile to init project
+- Start virtual env and install dependencies
+
+```bash
+make create-venv
+
+```
+- Create and configure Database 
+
+```bash
+make start-database
+
+```
+
+- Poblate Database with ramdom data
+```bash
+make poblate-database
+
+```
+- Activate hot reload:
+```bash
+make activate-hot-reload
+
+```
+
+
+## Manual running the backend project
 
 - Clone the repo
 
 ```bash
-git clone https://github.com/ioet/python-pizza-planet.git
+git clone https://github.com/ispa16ioet/python-pizza-planet-ispa16.git
+
 ```
 
 - Create a virtual environment in the root folder of the project
@@ -82,6 +119,12 @@ set FLASK_ENV=development
 ```bash
 python3 manage.py run
 ```
+- Poblate Database with:
+
+```bash
+python3 poblate.py
+```
+
 
 ## Running the frontend
 
@@ -107,8 +150,22 @@ ext install ritwickdey.LiveServer
 
 - Make sure that you have `pytest` installed
 
-- Run the test command
-
+- Run the test command (using makefile)
+```bash
+makefile test
+```
+- Run the test command (manual)
 ```bash
 python3 manage.py test
+```
+## Other usefull commands
+- Formatt document 
+
+```bash
+make run-formatter
+```
+- Clean flask app  
+
+```bash
+make clean
 ```
