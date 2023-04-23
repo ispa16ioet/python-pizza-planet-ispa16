@@ -22,6 +22,11 @@ start-database:
 	python3 manage.py db init
 	python3 manage.py db migrate
 	python3 manage.py db upgrade
+
+test:
+	. $(VENV_NAME)/bin/activate
+	pytest --cov
+
 poblate-database:
 	. $(VENV_NAME)/bin/activate
 	python3 poblate.py
