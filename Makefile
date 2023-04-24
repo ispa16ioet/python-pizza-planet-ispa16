@@ -19,9 +19,9 @@ clean:
 
 start-database:
 	. $(VENV_NAME)/bin/activate
-	python3 manage.py db init
-	python3 manage.py db migrate
-	python3 manage.py db upgrade
+	python3 manage.py db init 
+	python3 manage.py db migrate 
+	python3 manage.py db upgrade 
 
 test:
 	. $(VENV_NAME)/bin/activate
@@ -29,8 +29,7 @@ test:
 
 poblate-database:
 	. $(VENV_NAME)/bin/activate
-	python3 poblate.py
-
+	cd poblate && python3 poblate.py
 activate-hot-reload:
 	export FLASK_ENV=development
 
