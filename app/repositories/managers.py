@@ -2,7 +2,15 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column, func, desc
 
-from .models import Ingredient, Order, OrderDetail, Size, Beverage, db
+from .models import (
+    Ingredient,
+    Order,
+    IngredientDetail,
+    BeverageDetail,
+    Size,
+    Beverage,
+    db,
+)
 from .serializers import (
     IngredientSerializer,
     BeverageSerializer,
@@ -89,7 +97,7 @@ class OrderManager(BaseManager):
 
         cls.session.add_all(
             (
-                OrderDetail(
+                IngredientDetail(
                     order_id=new_order._id,
                     ingredient_id=ingredient._id,
                     ingredient_price=ingredient.price,
@@ -99,7 +107,7 @@ class OrderManager(BaseManager):
         )
         cls.session.add_all(
             (
-                OrderDetail(
+                BeverageDetail(
                     order_id=new_order._id,
                     beverage_id=beverage._id,
                     beverage_price=beverage.price,
@@ -116,11 +124,12 @@ class ReportManager(BaseManager):
     def get_most_common_ingredient(cls, model):
         most_common_ingredients = (
             cls.session.query(
-                Ingredient.name, func.count(OrderDetail.ingredient_id).label("count")
+                Ingredient.name,
+                func.count(IngredientDetail.ingredient_id).label("count"),
             )
-            .join(OrderDetail, Ingredient._id == OrderDetail.ingredient_id)
+            .join(IngredientDetail, Ingredient._id == IngredientDetail.ingredient_id)
             .group_by(Ingredient.name)
-            .order_by(func.count(OrderDetail.ingredient_id).desc())
+            .order_by(func.count(IngredientDetail.ingredient_id).desc())
             .limit(3)
             .all()
         )
@@ -136,11 +145,12 @@ class ReportManager(BaseManager):
     def get_less_common_ingredient(cls, model):
         less_common_ingredients = (
             cls.session.query(
-                Ingredient.name, func.count(OrderDetail.ingredient_id).label("count")
+                Ingredient.name,
+                func.count(IngredientDetail.ingredient_id).label("count"),
             )
-            .join(OrderDetail, Ingredient._id == OrderDetail.ingredient_id)
+            .join(IngredientDetail, Ingredient._id == IngredientDetail.ingredient_id)
             .group_by(Ingredient.name)
-            .order_by(func.count(OrderDetail.ingredient_id).asc())
+            .order_by(func.count(IngredientDetail.ingredient_id).asc())
             .limit(3)
             .all()
         )

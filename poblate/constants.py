@@ -1,4 +1,5 @@
 from poblate_utils.db_utils import *
+
 INGREDIENTS = [
     {"name": "Mozzarella cheese", "price": 2.50},
     {"name": "Pepperoni", "price": 1.75},
@@ -32,9 +33,10 @@ SIZES = [
 ]
 
 models = [
-    {"data": INGREDIENTS,'function':insert_ingredient},
-    {"data": BEVERAGES,'function':insert_beverage},
-    {"data": SIZES,'function':insert_size},
+    {"data": INGREDIENTS, "function": insert_ingredient},
+    {"data": BEVERAGES, "function": insert_beverage},
+    {"data": SIZES, "function": insert_size},
 ]
-ORDER_FUN= insert_order
-ORDER_DETAIL_FUN= insert_order_detail
+ORDER_FUN = insert_order
+INGREDIENT_DETAIL_FUN = insert_ingredient_detail
+BEVERAGE_DETAIL_FUN = insert_beverage_detail

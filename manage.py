@@ -6,7 +6,13 @@ from app import flask_app
 from app.plugins import db
 
 # flake8: noqa
-from app.repositories.models import Ingredient, Order, OrderDetail, Size
+from app.repositories.models import (
+    Ingredient,
+    Order,
+    IngredientDetail,
+    BeverageDetail,
+    Size,
+)
 
 
 manager = FlaskGroup(flask_app)

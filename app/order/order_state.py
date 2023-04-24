@@ -8,7 +8,6 @@ from ..repositories.managers import (
     SizeManager,
     BeverageManager,
 )
-from ..controllers.base import BaseController
 
 
 class OrderState(object):
@@ -64,11 +63,11 @@ class CreateOrder(OrderState):
     def check_required_keys(keys: Tuple[str, ...], element: dict[str, any]) -> bool:
         """Check if all the required keys are present in the given dictionary."""
         return all(element.get(key) for key in keys)
-    
+
     @staticmethod
     def calculate_order_price(
-         size_price: float, ingredients: list, beverages: list
-    )-> float:
+        size_price: float, ingredients: list, beverages: list
+    ) -> float:
         price = (
             sum(ingredient.price for ingredient in ingredients)
             + size_price

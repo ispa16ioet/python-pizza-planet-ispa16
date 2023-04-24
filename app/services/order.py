@@ -21,7 +21,7 @@ def create_order():
 def get_order_by_id(_id: int):
     new_order = Order()
     new_order.get_order_by_id(_id)
-    
+
     return state_control_action(new_order)
 
 
