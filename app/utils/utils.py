@@ -14,8 +14,6 @@ class OrderState(Enum):
     FINISH = "Finish"
 
 
-
-
 def entity_controller_action(
     action: Callable[..., Union[Dict[str, Any], Tuple[Dict[str, Any], str]]],
     parm: Any = None,
@@ -38,6 +36,7 @@ def state_control_action(new_order: Any) -> Tuple[str, int]:
         if not new_order.order_error
         else {"error": new_order.order_error}
     )
+
     status_code = 200 if not new_order.order_error else 400
     return jsonify(response), status_code
 

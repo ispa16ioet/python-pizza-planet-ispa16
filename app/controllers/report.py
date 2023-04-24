@@ -2,7 +2,7 @@ from typing import Tuple, List
 from sqlalchemy.exc import SQLAlchemyError
 
 from ..repositories.managers import ReportManager
-from ..repositories.models import Ingredient, OrderDetail, Order
+from ..repositories.models import Ingredient, IngredientDetail, Order
 
 
 class ReportController:
@@ -10,7 +10,7 @@ class ReportController:
     def get_most_common_ingredient() -> Tuple[List[Ingredient], str]:
         try:
             most_common_ingredient = ReportManager.get_most_common_ingredient(
-                model=OrderDetail
+                model=IngredientDetail
             )
             return most_common_ingredient
         except (SQLAlchemyError, RuntimeError) as ex:
@@ -20,7 +20,7 @@ class ReportController:
     def get_less_common_ingredient() -> Tuple[List[Ingredient], str]:
         try:
             less_common_ingredient = ReportManager.get_less_common_ingredient(
-                model=OrderDetail
+                model=IngredientDetail
             )
             return less_common_ingredient
         except (SQLAlchemyError, RuntimeError) as ex:
