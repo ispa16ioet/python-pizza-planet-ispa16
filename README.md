@@ -55,7 +55,11 @@ make poblate-database
 make activate-hot-reload
 
 ```
+- Run Backend:
+```bash
+make run
 
+```
 
 ## Manual running the backend project
 
