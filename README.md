@@ -38,6 +38,9 @@ git clone https://github.com/ispa16ioet/python-pizza-planet-ispa16.git
 make create-venv
 
 ```
+```bash
+source venv/bin/activate 
+```
 - Create and configure Database 
 
 ```bash
